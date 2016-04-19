@@ -17,6 +17,8 @@ public class WebViewBridgeManager extends ReactWebViewManager {
 
   public static final int COMMAND_INJECT_BRIDGE_SCRIPT = 100;
   public static final int COMMAND_SEND_TO_BRIDGE = 101;
+  public static final int COMMAND_STOP_LOADING = 200;
+  public static final int COMMAND_LOAD_URL = 201;
 
   private boolean initializedBridge;
 
@@ -41,6 +43,8 @@ public class WebViewBridgeManager extends ReactWebViewManager {
 
     commandsMap.put("injectBridgeScript", COMMAND_INJECT_BRIDGE_SCRIPT);
     commandsMap.put("sendToBridge", COMMAND_SEND_TO_BRIDGE);
+    commandsMap.put("stopLoading", COMMAND_STOP_LOADING);
+    commandsMap.put("loadUrl", COMMAND_LOAD_URL);
 
     return commandsMap;
   }
@@ -55,6 +59,12 @@ public class WebViewBridgeManager extends ReactWebViewManager {
         break;
       case COMMAND_SEND_TO_BRIDGE:
         sendToBridge(root, args.getString(0));
+        break;
+      case COMMAND_STOP_LOADING:
+        root.stopLoading();
+        break;
+      case COMMAND_LOAD_URL:
+        root.loadUrl(args.getString(0));
         break;
       default:
         //do nothing!!!!

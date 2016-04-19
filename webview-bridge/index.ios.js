@@ -229,6 +229,18 @@ var WebViewBridge = React.createClass({
     WebViewBridgeManager.sendToBridge(this.getWebViewBridgeHandle(), message);
   },
 
+  stopLoading: function() {
+    UIManager.dispatchViewManagerCommand(
+      this.getWebViewBridgeHandle(),
+      UIManager.RCTWebViewBridge.Commands.stopLoading,
+      null
+    );
+  },
+
+  loadUrl: function (url: string) {
+    WebViewBridgeManager.loadUrl(this.getWebViewBridgeHandle(), url);
+  },
+
   /**
    * We return an event with a bunch of fields including:
    *  url, title, loading, canGoBack, canGoForward
