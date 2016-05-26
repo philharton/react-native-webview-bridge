@@ -114,6 +114,11 @@ RCT_NOT_IMPLEMENTED(- (instancetype)initWithCoder:(NSCoder *)aDecoder)
   [_webView loadRequest:request];
 }
 
+- (NSString *)evaluateJavascript:(NSString *)script
+{
+  return [_webView stringByEvaluatingJavaScriptFromString:script];
+}
+
 - (NSURL *)URL
 {
   return _webView.request.URL;

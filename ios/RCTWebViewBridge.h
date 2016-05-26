@@ -46,5 +46,6 @@ shouldStartLoadForRequest:(NSMutableDictionary<NSString *, id> *)request
 - (void)sendToBridge:(NSString *)message;
 - (void)stopLoading;
 - (void)loadUrl:(NSString *)url;
+- (NSString *)evaluateJavascript:(NSString *)script;
 
 @end

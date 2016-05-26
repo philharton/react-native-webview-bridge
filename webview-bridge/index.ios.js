@@ -242,6 +242,19 @@ var WebViewBridge = React.createClass({
     WebViewBridgeManager.loadUrl(this.getWebViewBridgeHandle(), url);
   },
 
+  evaluateJavascript: function (script: string) {
+    const that = this;
+    return new Promise(function(resolve, reject) {
+      WebViewBridgeManager.evaluateJavascript(
+        that.getWebViewBridgeHandle(),
+        script,
+        function(error, result) {
+          resolve(result);
+        }
+      );
+    });
+  },
+
   /**
    * We return an event with a bunch of fields including:
    *  url, title, loading, canGoBack, canGoForward
