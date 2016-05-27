@@ -255,6 +255,19 @@ var WebViewBridge = React.createClass({
     });
   },
 
+  captureAreaToBase64: function (top, left, width, height) {
+    const that = this;
+    return new Promise(function(resolve, reject) {
+      WebViewBridgeManager.captureAreaToBase64(
+        that.getWebViewBridgeHandle(),
+        top, left, width, height,
+        function(error, result) {
+          resolve(result);
+        }
+      );
+    });
+  },
+
   /**
    * We return an event with a bunch of fields including:
    *  url, title, loading, canGoBack, canGoForward
