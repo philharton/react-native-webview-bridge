@@ -255,14 +255,18 @@ var WebViewBridge = React.createClass({
     });
   },
 
-  captureAreaToBase64: function (top, left, width, height) {
+  captureAreaToPNGFile: function (path, left, top, width, height) {
     const that = this;
     return new Promise(function(resolve, reject) {
-      WebViewBridgeManager.captureAreaToBase64(
+      WebViewBridgeManager.captureAreaToPNGFile(
         that.getWebViewBridgeHandle(),
-        top, left, width, height,
+        path, left, top, width, height,
         function(error, result) {
-          resolve(result);
+          if (result === 'true') {
+            resolve();
+          } else {
+            reject('Webview image capture failed');
+          }
         }
       );
     });

@@ -119,7 +119,7 @@ RCT_NOT_IMPLEMENTED(- (instancetype)initWithCoder:(NSCoder *)aDecoder)
   return [_webView stringByEvaluatingJavaScriptFromString:script];
 }
 
-- (NSString *)captureAreaToBase64AtYPosition:(nonnull NSNumber *)top atXPosition:(nonnull NSNumber *)left withWidth:(nonnull NSNumber *)width withHeight:(nonnull NSNumber *)height
+- (BOOL)captureAreaToPNGFileWithPath:(NSString *)path atXPosition:(nonnull NSNumber *)left atYPosition:(nonnull NSNumber *)top withWidth:(nonnull NSNumber *)width withHeight:(nonnull NSNumber *)height
 {
   CGSize size = CGSizeMake(width.floatValue, height.floatValue);
   UIGraphicsBeginImageContextWithOptions(size, self.opaque, 0.0f);
@@ -127,7 +127,8 @@ RCT_NOT_IMPLEMENTED(- (instancetype)initWithCoder:(NSCoder *)aDecoder)
   [self drawViewHierarchyInRect:bounds afterScreenUpdates:NO];
   UIImage * snapshotImage = UIGraphicsGetImageFromCurrentImageContext();
   UIGraphicsEndImageContext();
-  return [UIImagePNGRepresentation(snapshotImage) base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
+  NSData *binaryImageData = UIImagePNGRepresentation(snapshotImage);
+  return [binaryImageData writeToFile:path atomically:YES];
 }
 
 - (NSURL *)URL

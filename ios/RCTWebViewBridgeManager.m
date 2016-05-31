@@ -155,11 +155,12 @@ RCT_EXPORT_METHOD(evaluateJavascript:(nonnull NSNumber *)reactTag
   }];
 }
 
-RCT_EXPORT_METHOD(captureAreaToBase64:(nonnull NSNumber *)reactTag
-                 value:(nonnull NSNumber *)top
-                 value:(nonnull NSNumber *)left
-                 value:(nonnull NSNumber *)width
-                 value:(nonnull NSNumber *)height
+RCT_EXPORT_METHOD(captureAreaToPNGFile:(nonnull NSNumber *)reactTag
+                 path:(NSString*)path 
+                 left:(nonnull NSNumber *)left
+                 top:(nonnull NSNumber *)top
+                 width:(nonnull NSNumber *)width
+                 height:(nonnull NSNumber *)height
                  callback:(RCTResponseSenderBlock)callback)
 {
   [self.bridge.uiManager addUIBlock:^(__unused RCTUIManager *uiManager, NSDictionary<NSNumber *, RCTWebViewBridge *> *viewRegistry) {
@@ -167,8 +168,12 @@ RCT_EXPORT_METHOD(captureAreaToBase64:(nonnull NSNumber *)reactTag
     if (![view isKindOfClass:[RCTWebViewBridge class]]) {
       RCTLogError(@"Invalid view returned from registry, expecting RCTWebViewBridge, got: %@", view);
     } else {
-      NSString *result = [view captureAreaToBase64AtYPosition: top atXPosition:left withWidth:width withHeight:height];
-      callback(@[[NSNull null], result]);
+      BOOL result = [view captureAreaToPNGFileWithPath: path atXPosition:left atYPosition:top withWidth:width withHeight:height];
+      if (result) {
+        callback(@[[NSNull null], @"true"]);
+      } else {
+        callback(@[[NSNull null], @"false"]);
+      }
     }
   }];
 }

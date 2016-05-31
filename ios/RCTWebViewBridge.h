@@ -47,6 +47,6 @@ shouldStartLoadForRequest:(NSMutableDictionary<NSString *, id> *)request
 - (void)stopLoading;
 - (void)loadUrl:(NSString *)url;
 - (NSString *)evaluateJavascript:(NSString *)script;
-- (NSString *)captureAreaToBase64AtYPosition:(nonnull NSNumber *)top atXPosition:(nonnull NSNumber *)left withWidth:(nonnull NSNumber *)width withHeight:(nonnull NSNumber *)height;
+- (BOOL)captureAreaToPNGFileWithPath:(NSString *)path atXPosition:(nonnull NSNumber *)left atYPosition:(nonnull NSNumber *)top withWidth:(nonnull NSNumber *)width withHeight:(nonnull NSNumber *)height;
 
 @end
